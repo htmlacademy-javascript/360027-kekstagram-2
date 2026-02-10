@@ -1,5 +1,5 @@
-import {getArrayPhotos} from './create-array-photos.js';
+import {generatePhotos} from './create-array-photos.js';
 
-const photos = getArrayPhotos();
+const photos = generatePhotos();
 // eslint-disable-next-line no-console
 console.log(photos);
