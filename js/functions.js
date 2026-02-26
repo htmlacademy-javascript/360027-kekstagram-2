@@ -21,11 +21,11 @@ isPalindrom('Это точно не палиндром');
 
 //дополнительное задание из module2-task1
 function getNumbersFromString (someString) {
-  someString = someString.toString();
+  const normalizedString = someString.toString();
   let result = '';
 
-  for (let i = 0; i < someString.length; i++) {
-    let symbol = someString[i];
+  for (let i = 0; i < normalizedString.length; i++) {
+    let symbol = normalizedString[i];
     symbol = parseInt(symbol, 10);
 
     if (!Number.isNaN(symbol)) {
