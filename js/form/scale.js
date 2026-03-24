@@ -32,4 +32,8 @@ const initScale = () => {
   scaleControlBiggerElement.addEventListener('click', onBiggerButtonClick);
 };
 
-export {initScale};
+const resetScale = () => {
+  applyScale(SCALE_DEFAULT);
+};
+
+export {initScale, resetScale};
