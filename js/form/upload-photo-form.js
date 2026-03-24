@@ -1,7 +1,7 @@
 import {isEscapeKey} from '../utils.js';
 import {validateForm, resetValidation, setupValidation} from './validate.js';
-import {initScale} from './scale.js';
-import {initEffects} from './effects.js';
+import {initScale, resetScale} from './scale.js';
+import {initEffects, resetEffects} from './effects.js';
 
 const formElement = document.querySelector('.img-upload__form');
 const overlayElement = formElement.querySelector('.img-upload__overlay');
@@ -17,6 +17,8 @@ const closeUploadForm = () => {
   cancelButtonElement.removeEventListener('click', onCancelButtonClick);
   formElement.reset();
   resetValidation();
+  resetScale();
+  resetEffects();
 };
 
 function onDocumentKeydown(evt) {
