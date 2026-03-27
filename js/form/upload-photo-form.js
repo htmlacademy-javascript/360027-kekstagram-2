@@ -2,6 +2,8 @@ import {isEscapeKey} from '../utils.js';
 import {validateForm, resetValidation, setupValidation} from './validate.js';
 import {initScale, resetScale} from './scale.js';
 import {initEffects, resetEffects} from './effects.js';
+import {sendData} from '../api.js';
+import {showSuccessMessage, showErrorMessage} from '../message.js';
 
 const formElement = document.querySelector('.img-upload__form');
 const overlayElement = formElement.querySelector('.img-upload__overlay');
@@ -9,6 +11,7 @@ const fileInputElement = formElement.querySelector('#upload-file');
 const cancelButtonElement = overlayElement.querySelector('#upload-cancel');
 const hashtagsInputElement = formElement.querySelector('.text__hashtags');
 const commentInputElement = formElement.querySelector('.text__description');
+const submitButtonElement = formElement.querySelector('.img-upload__submit');
 
 const closeUploadForm = () => {
   overlayElement.classList.add('hidden');
@@ -26,6 +29,9 @@ function onDocumentKeydown(evt) {
     if (document.activeElement === hashtagsInputElement || document.activeElement === commentInputElement) {
       return;
     }
+    if (document.querySelector('.error')) {
+      return;
+    }
     closeUploadForm();
   }
 }
@@ -41,17 +47,40 @@ const onFileInputChange = () => {
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-const openUploadFormSubmit = (evt) => {
+const blockSubmitButton = () => {
+  submitButtonElement.disabled = true;
+};
+
+const unblockSubmitButton = () => {
+  submitButtonElement.disabled = false;
+};
+
+const onFormSubmit = (evt) => {
   evt.preventDefault();
   const isValid = validateForm();
 
-  // eslint-disable-next-line no-console
-  console.log({isValid});
+  if (!isValid) {
+    return;
+  }
+
+  blockSubmitButton();
+
+  sendData(new FormData(formElement))
+    .then(() => {
+      closeUploadForm();
+      showSuccessMessage();
+    })
+    .catch(() => {
+      showErrorMessage();
+    })
+    .finally(() => {
+      unblockSubmitButton();
+    });
 };
 
 const initUploadForm = () => {
   fileInputElement.addEventListener('change', onFileInputChange);
-  formElement.addEventListener('submit', openUploadFormSubmit);
+  formElement.addEventListener('submit', onFormSubmit);
   setupValidation();
   initScale();
   initEffects();
