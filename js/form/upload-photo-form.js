@@ -57,8 +57,9 @@ const unblockSubmitButton = () => {
 
 const onFormSubmit = (evt) => {
   evt.preventDefault();
+  const isValid = validateForm();
 
-  if (!validateForm()) {
+  if (!isValid) {
     return;
   }
 
