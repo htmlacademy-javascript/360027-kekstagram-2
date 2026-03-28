@@ -35,8 +35,11 @@ const renderFilteredPhotos = (photos, filterId) => {
         openBigPicture
       );
       break;
-    default:
+    case 'filter-default':
       renderThumbnails(photos, openBigPicture);
+      break;
+    default:
+      throw new Error(`Unknow filter: ${filterId}`);
   }
 };
 
