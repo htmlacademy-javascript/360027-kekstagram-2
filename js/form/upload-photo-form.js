@@ -12,11 +12,11 @@ const cancelButtonElement = overlayElement.querySelector('#upload-cancel');
 const hashtagsInputElement = formElement.querySelector('.text__hashtags');
 const commentInputElement = formElement.querySelector('.text__description');
 const submitButtonElement = formElement.querySelector('.img-upload__submit');
+const previewImageElement = overlayElement.querySelector('.img-upload__preview img');
+const effectsPreviewElements = overlayElement.querySelectorAll('.effects__preview');
 
 const loadPreviewImage = () => {
   const file = fileInputElement.files[0];
-  const previewImageElement = overlayElement.querySelector('.img-upload__preview img');
-  const effectsPreviewElements = overlayElement.querySelectorAll('.effects__preview');
 
   if (file) {
     const objectUrl = URL.createObjectURL(file);
