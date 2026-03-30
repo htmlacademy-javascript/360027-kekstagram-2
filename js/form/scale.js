@@ -11,6 +11,7 @@ const previewImageElement = formElement.querySelector('.img-upload__preview img'
 
 const applyScale = (value) => {
   scaleControlValueElement.value = `${value}%`;
+  scaleControlValueElement.setAttribute('value', `${value}%`);
   previewImageElement.style.transform = `scale(${value / 100})`;
 };
 
